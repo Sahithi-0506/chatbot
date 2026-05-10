@@ -1,31 +1,37 @@
-# 🤖 LangChain Gemini Chatbot
+# 📚 AI Academic Study Assistant using RAG
 
-An AI-powered chatbot application built using LangChain, Google Gemini API, Python, and Streamlit.
+An AI-powered Academic Study Assistant built using LangChain, Google Gemini API, Streamlit, and Retrieval-Augmented Generation (RAG).
 
-This chatbot allows users to interact with an AI assistant through a simple web interface. The project demonstrates the integration of Large Language Models (LLMs) using the LangChain framework.
+This application allows students to upload subject PDFs, notes, or academic materials and ask questions based on the uploaded documents.
+
+The chatbot retrieves relevant content from the uploaded PDF and generates contextual answers using Gemini AI.
 
 ---
 
-# 📌 Features
+# 🚀 Features
 
-- Conversational AI chatbot
-- Built using LangChain framework
-- Google Gemini API integration
-- Interactive Streamlit UI
-- Environment variable security using `.env`
-- Session-based chat memory
-- Beginner-friendly project structure
+- 📄 Upload multiple academic PDF documents
+- 🤖 AI-powered question answering
+- 🔍 RAG (Retrieval-Augmented Generation) workflow
+- 📚 Context-based answers from uploaded study materials
+- 🧠 Semantic document retrieval
+- ⚡ Gemini AI integration
+- 💬 Interactive Streamlit user interface
+- 🔐 Secure API key handling using `.env`
 
 ---
 
 # 🛠️ Technologies Used
 
 - Python
+- Streamlit
 - LangChain
 - Google Gemini API
-- Streamlit
+- RAG Architecture
+- TF-IDF Retrieval
+- PyPDF2
+- scikit-learn
 - dotenv
-- Git & GitHub
 
 ---
 
@@ -85,7 +91,7 @@ GOOGLE_API_KEY=your_api_key_here
 streamlit run app.py
 ```
 
-The application will run on:
+Application runs at:
 
 ```bash
 http://localhost:8501
@@ -95,26 +101,42 @@ http://localhost:8501
 
 # 💡 How It Works
 
-1. User enters a message in the chat interface.
-2. LangChain processes the conversation.
-3. Gemini API generates AI response.
-4. Streamlit displays the conversation dynamically.
+1. User uploads academic PDF documents.
+2. PDF text is extracted and split into chunks.
+3. Relevant chunks are retrieved using local similarity search.
+4. Gemini AI generates answers using retrieved context.
+5. Streamlit displays answers interactively.
 
 ---
 
 # 📸 Output Screenshot
 
-![alt text](image.png)
+Add your project screenshot here.
 
+```bash
+![alt text](image-1.png)
+```
 
+---
+
+# 🎯 Use Cases
+
+- Exam preparation
+- Quick revision
+- Concept clarification
+- Academic doubt solving
+- Notes summarization
+
+---
 
 # 🚀 Future Enhancements
 
-- Add voice assistant support
-- Store chat history in database
-- Add multiple AI personalities
-- Deploy using Streamlit Cloud
+- Add chat history support
+- Add voice assistant integration
+- Add multi-subject organization
+- Implement vector databases like FAISS
 - Add authentication system
+- Deploy advanced RAG pipeline
 
 ---
 
@@ -124,6 +146,7 @@ http://localhost:8501
 
 - GitHub: https://github.com/Sahithi-0506
 - LinkedIn: https://www.linkedin.com/in/sahithi-achyutha-ishwarya-kalla-317799319/
+
 ---
 
 # 📄 License
