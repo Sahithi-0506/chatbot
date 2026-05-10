@@ -113,9 +113,9 @@ http://localhost:8501
 
 Add your project screenshot here.
 
-```bash
-![alt text](image-1.png)
-```
+# 📸 Output Screenshot
+
+![Project Screenshot](image-1.png)
 
 ---
 
