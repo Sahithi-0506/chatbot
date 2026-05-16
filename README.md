@@ -118,6 +118,11 @@ http://localhost:8501
 
 ![alt text](image.png)
 
+## 📄 Document Processing Pipeline
+
+The uploaded academic PDFs are processed step by step before answering user questions.
+
+![alt text](image-2.png)
 ---
 
 # 🎯 Use Cases
