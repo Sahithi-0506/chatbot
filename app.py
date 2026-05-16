@@ -37,8 +37,8 @@ def get_pdf_text(pdf_docs):
 
 def get_text_chunks(documents):
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=150
+        chunk_size=700,
+        chunk_overlap=100
     )
 
     chunks = []
@@ -58,6 +58,13 @@ def get_text_chunks(documents):
     return chunks
 
 
+@st.cache_resource
+def get_embedding_model():
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+
+
 def create_vector_store(chunks):
     documents = []
 
@@ -73,18 +80,16 @@ def create_vector_store(chunks):
             )
         )
 
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
+    embeddings = get_embedding_model()
 
     vector_store = FAISS.from_documents(documents, embeddings)
     return vector_store
 
 
-def retrieve_relevant_chunks(question, vector_store, top_k=4):
+def retrieve_relevant_chunks(question, vector_store, top_k=3):
     docs = vector_store.similarity_search(question, k=top_k)
 
-    context = "\n\n".join([doc.page_content for doc in docs])
+    context = "\n\n".join([doc.page_content[:1200] for doc in docs])
 
     sources = []
     for doc in docs:
@@ -98,7 +103,7 @@ def retrieve_relevant_chunks(question, vector_store, top_k=4):
 def get_answer(question, context, chat_history):
     history_text = ""
 
-    for chat in chat_history[-4:]:
+    for chat in chat_history[-2:]:
         history_text += f"User: {chat['question']}\nAssistant: {chat['answer']}\n\n"
 
     prompt_template = """
@@ -138,7 +143,7 @@ def get_answer(question, context, chat_history):
 
 
 def summarize_documents(chunks):
-    combined_text = "\n\n".join([chunk["content"] for chunk in chunks[:12]])
+    combined_text = "\n\n".join([chunk["content"] for chunk in chunks[:8]])
 
     prompt_template = """
     You are an academic study assistant.
@@ -196,14 +201,16 @@ with st.sidebar:
 
     if st.button("Process PDFs"):
         if pdf_docs:
-            with st.spinner("Processing PDFs..."):
+            with st.spinner("Processing PDFs and creating FAISS vector store..."):
                 documents = get_pdf_text(pdf_docs)
 
                 if len(documents) == 0:
                     st.error("No readable text found in the uploaded PDFs.")
                 else:
                     st.session_state.text_chunks = get_text_chunks(documents)
-                    st.session_state.vector_store = create_vector_store(st.session_state.text_chunks)
+                    st.session_state.vector_store = create_vector_store(
+                        st.session_state.text_chunks
+                    )
                     st.session_state.chat_history = []
                     st.session_state.document_summary = ""
 
@@ -261,23 +268,24 @@ typed_question = st.chat_input("Ask a question from your uploaded PDFs...")
 question = selected_question if selected_question else typed_question
 
 if question:
-    if st.session_state.text_chunks:
-        context, sources = retrieve_relevant_chunks(
-            question,
-            st.session_state.vector_store
-        )
+    if st.session_state.text_chunks and st.session_state.vector_store:
+        with st.spinner("Retrieving relevant context and generating answer..."):
+            context, sources = retrieve_relevant_chunks(
+                question,
+                st.session_state.vector_store
+            )
 
-        answer = get_answer(
-            question,
-            context,
-            st.session_state.chat_history
-        )
+            answer = get_answer(
+                question,
+                context,
+                st.session_state.chat_history
+            )
 
-        st.session_state.chat_history.append({
-            "question": question,
-            "answer": answer,
-            "sources": sources
-        })
+            st.session_state.chat_history.append({
+                "question": question,
+                "answer": answer,
+                "sources": sources
+            })
     else:
         st.warning("Please upload and process PDFs first.")
 
