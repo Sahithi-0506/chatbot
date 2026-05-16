@@ -123,6 +123,15 @@ http://localhost:8501
 The uploaded academic PDFs are processed step by step before answering user questions.
 
 ![alt text](image-2.png)
+
+## ❓ Question Answering Pipeline
+
+The system retrieves semantically relevant document chunks and generates grounded answers using Gemini.
+
+![alt text](image-3.png)
+
+
+
 ---
 
 # 🎯 Use Cases
