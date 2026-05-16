@@ -8,30 +8,35 @@ The chatbot retrieves relevant content from the uploaded PDF and generates conte
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
 - 📄 Upload multiple academic PDF documents
-- 🤖 AI-powered question answering
-- 🔍 RAG (Retrieval-Augmented Generation) workflow
+- 🤖 AI-powered academic question answering
+- 🔍 Retrieval-Augmented Generation (RAG) workflow
+- 🧠 Semantic document retrieval using HuggingFace embeddings
+- ⚡ FAISS Vector Store for fast similarity search
 - 📚 Context-based answers from uploaded study materials
-- 🧠 Semantic document retrieval
-- ⚡ Gemini AI integration
-- 💬 Interactive Streamlit user interface
+- 📌 Source citation with PDF name and page number
+- 💬 Chat history using Streamlit session state
+- 📝 Document summary generation
+- 📌 Quick question suggestion buttons
+- 🚀 Caching for embedding model optimization
+- 🎯 Token consumption optimization using top-k retrieval and limited chat history
 - 🔐 Secure API key handling using `.env`
 
 ---
 
-# 🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 - Python
 - Streamlit
 - LangChain
 - Google Gemini API
-- RAG Architecture
-- TF-IDF Retrieval
+- HuggingFace Embeddings
+- FAISS Vector Store
 - PyPDF2
-- scikit-learn
-- dotenv
+- python-dotenv
+- RAG Architecture
 
 ---
 
@@ -99,20 +104,35 @@ http://localhost:8501
 
 ---
 
-# 💡 How It Works
+## 💡 How It Works
 
-1. User uploads academic PDF documents.
-2. PDF text is extracted and split into chunks.
-3. Relevant chunks are retrieved using local similarity search.
-4. Gemini AI generates answers using retrieved context.
-5. Streamlit displays answers interactively.
+1. User uploads one or more academic PDF documents.
+2. Text is extracted from PDFs using PyPDF2.
+3. Extracted text is split into smaller chunks using LangChain text splitter.
+4. Each chunk is converted into embeddings using HuggingFace MiniLM embeddings.
+5. Embeddings are stored in FAISS Vector Store.
+6. When the user asks a question, the system performs semantic similarity search.
+7. The top relevant chunks are retrieved from FAISS.
+8. Retrieved context and user question are sent to Gemini AI.
+9. Gemini generates a context-aware academic answer.
+10. The app displays the answer along with source citation.
+
+---
+
+## ⚙️ Optimization
+
+- Used local HuggingFace embeddings to reduce Gemini API dependency.
+- Cached the embedding model using Streamlit `cache_resource`.
+- Reduced chunk size and chunk overlap for better retrieval efficiency.
+- Limited top-k retrieval to reduce unnecessary context.
+- Limited chat history sent to Gemini to reduce token consumption.
 
 ---
 
 
 # 📸 Output Screenshot
 
-![Project Screenshot](image-1.png)
+![alt text](image-5.png)
 
 ## RAG Architecture Diagram
 
