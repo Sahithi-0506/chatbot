@@ -4,8 +4,9 @@ from PyPDF2 import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 
 load_dotenv()
 
@@ -57,24 +58,37 @@ def get_text_chunks(documents):
     return chunks
 
 
-def retrieve_relevant_chunks(question, chunks, top_k=4):
-    chunk_texts = [chunk["content"] for chunk in chunks]
+def create_vector_store(chunks):
+    documents = []
 
-    vectorizer = TfidfVectorizer(stop_words="english")
-    vectors = vectorizer.fit_transform(chunk_texts + [question])
+    for chunk in chunks:
+        documents.append(
+            Document(
+                page_content=chunk["content"],
+                metadata={
+                    "file_name": chunk["file_name"],
+                    "page": chunk["page"],
+                    "chunk_id": chunk["chunk_id"]
+                }
+            )
+        )
 
-    question_vector = vectors[-1]
-    chunk_vectors = vectors[:-1]
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
-    similarities = cosine_similarity(question_vector, chunk_vectors).flatten()
-    top_indices = similarities.argsort()[-top_k:][::-1]
+    vector_store = FAISS.from_documents(documents, embeddings)
+    return vector_store
 
-    selected_chunks = [chunks[i] for i in top_indices]
-    context = "\n\n".join([chunk["content"] for chunk in selected_chunks])
+
+def retrieve_relevant_chunks(question, vector_store, top_k=4):
+    docs = vector_store.similarity_search(question, k=top_k)
+
+    context = "\n\n".join([doc.page_content for doc in docs])
 
     sources = []
-    for chunk in selected_chunks:
-        source = f'{chunk["file_name"]} - Page {chunk["page"]}'
+    for doc in docs:
+        source = f'{doc.metadata["file_name"]} - Page {doc.metadata["page"]}'
         if source not in sources:
             sources.append(source)
 
@@ -161,6 +175,9 @@ def summarize_documents(chunks):
 if "text_chunks" not in st.session_state:
     st.session_state.text_chunks = []
 
+if "vector_store" not in st.session_state:
+    st.session_state.vector_store = None
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
@@ -186,6 +203,7 @@ with st.sidebar:
                     st.error("No readable text found in the uploaded PDFs.")
                 else:
                     st.session_state.text_chunks = get_text_chunks(documents)
+                    st.session_state.vector_store = create_vector_store(st.session_state.text_chunks)
                     st.session_state.chat_history = []
                     st.session_state.document_summary = ""
 
@@ -246,7 +264,7 @@ if question:
     if st.session_state.text_chunks:
         context, sources = retrieve_relevant_chunks(
             question,
-            st.session_state.text_chunks
+            st.session_state.vector_store
         )
 
         answer = get_answer(
