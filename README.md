@@ -109,13 +109,14 @@ http://localhost:8501
 
 ---
 
-# 📸 Output Screenshot
-
-Add your project screenshot here.
 
 # 📸 Output Screenshot
 
 ![Project Screenshot](image-1.png)
+
+## RAG Architecture Diagram
+
+![alt text](image.png)
 
 ---
 
