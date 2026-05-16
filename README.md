@@ -130,6 +130,11 @@ The system retrieves semantically relevant document chunks and generates grounde
 
 ![alt text](image-3.png)
 
+## 🔄 TF-IDF vs Embedding-Based Retrieval
+
+The project was initially implemented using TF-IDF keyword matching and later upgraded to embedding-based semantic retrieval using HuggingFace embeddings and FAISS vector search.
+
+![alt text](image-4.png)
 
 
 ---
