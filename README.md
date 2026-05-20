@@ -1,42 +1,119 @@
-# 📚 AI Academic Study Assistant using RAG
+````markdown id="1clu57"
+# 📚 Hybrid Academic RAG Assistant
 
-An AI-powered Academic Study Assistant built using LangChain, Google Gemini API, Streamlit, and Retrieval-Augmented Generation (RAG).
+An advanced AI-powered Hybrid Academic RAG (Retrieval-Augmented Generation) Assistant built using LangChain, Google Gemini API, ChromaDB, HuggingFace Embeddings, and Streamlit.
 
-This application allows students to upload subject PDFs, notes, or academic materials and ask questions based on the uploaded documents.
+This system allows students to upload academic PDFs, notes, and study materials into a persistent vector database and ask intelligent context-aware questions from the stored documents.
 
-The chatbot retrieves relevant content from the uploaded PDF and generates contextual answers using Gemini AI.
-
----
-
-## 🚀 Features
-
-- 📄 Upload multiple academic PDF documents
-- 🤖 AI-powered academic question answering
-- 🔍 Retrieval-Augmented Generation (RAG) workflow
-- 🧠 Semantic document retrieval using HuggingFace embeddings
-- ⚡ FAISS Vector Store for fast similarity search
-- 📚 Context-based answers from uploaded study materials
-- 📌 Source citation with PDF name and page number
-- 💬 Chat history using Streamlit session state
-- 📝 Document summary generation
-- 📌 Quick question suggestion buttons
-- 🚀 Caching for embedding model optimization
-- 🎯 Token consumption optimization using top-k retrieval and limited chat history
-- 🔐 Secure API key handling using `.env`
+The project follows a modular enterprise-style RAG architecture with query rewriting, semantic retrieval, reranking, prompt refinement, and grounded answer generation.
 
 ---
 
-## 🛠️ Technologies Used
+# 🚀 Features
+
+## 📄 Offline PDF Ingestion Pipeline
+
+- Upload and permanently store multiple academic PDFs
+- Extract text using PyMuPDF
+- Extract tables using pdfplumber
+- Clean and preprocess extracted content
+- Split documents into semantic chunks
+- Generate embeddings using HuggingFace MiniLM
+- Store embeddings permanently in ChromaDB
+
+---
+
+## 🤖 Advanced RAG Question Answering Pipeline
+
+- Query rewriting for better retrieval
+- Semantic similarity retrieval using ChromaDB
+- CrossEncoder reranking for improved relevance
+- Prompt refinement and context injection
+- Grounded answer generation using Gemini 2.5 Flash
+- Source citation with PDF name and page number
+
+---
+
+## 🧠 Smart Retrieval Features
+
+- PDF-specific retrieval filtering
+- Multi-PDF semantic search
+- Persistent vector database
+- Context-aware response generation
+- Top-k optimized retrieval
+- Semantic chunk reranking
+
+---
+
+## 💬 UI & User Experience
+
+- Streamlit chat-based interface
+- Persistent chat history using JSON storage
+- Quick academic question suggestions
+- Admin ingestion dashboard
+- PDF selection dropdown
+- Source transparency and retrieved details
+
+---
+
+# 🛠️ Technologies Used
 
 - Python
 - Streamlit
 - LangChain
 - Google Gemini API
 - HuggingFace Embeddings
-- FAISS Vector Store
-- PyPDF2
+- ChromaDB
+- SentenceTransformers
+- CrossEncoder Reranker
+- PyMuPDF
+- pdfplumber
 - python-dotenv
-- RAG Architecture
+- Retrieval-Augmented Generation (RAG)
+
+---
+
+# 🏗️ RAG Architecture
+
+## 📥 Offline / Ingestion Pipeline
+
+```text
+PDF Upload
+    ↓
+Text + Table Extraction
+    ↓
+Cleaning & Preprocessing
+    ↓
+Chunking
+    ↓
+Embedding Generation
+    ↓
+Store in ChromaDB
+```
+
+---
+
+## ❓ Question Answering Pipeline
+
+```text
+User Question
+      ↓
+Query Rewriting
+      ↓
+Semantic Retrieval from ChromaDB
+      ↓
+CrossEncoder Reranking
+      ↓
+Prompt Refinement
+      ↓
+Context Injection
+      ↓
+Gemini 2.5 Flash
+      ↓
+Grounded Answer Generation
+      ↓
+Source Citation
+```
 
 ---
 
@@ -46,22 +123,46 @@ The chatbot retrieves relevant content from the uploaded PDF and generates conte
 langchain-chatbot/
 │
 ├── app.py
+├── ingest.py
+├── config.py
 ├── requirements.txt
 ├── README.md
-├── .env
 ├── .gitignore
+├── chat_history.json
+│
+├── data/
+│   └── pdfs/
+│
+├── chroma_db/
+│
+├── rag/
+│   ├── __init__.py
+│   ├── document_loader.py
+│   ├── chunker.py
+│   ├── embeddings.py
+│   ├── vector_store.py
+│   ├── query_rewriter.py
+│   ├── retriever.py
+│   ├── reranker.py
+│   ├── prompt_builder.py
+│   ├── generator.py
+│   └── pipeline.py
+│
+└── images/
 ```
 
 ---
 
-# ⚙️ Installation
+# ⚙️ Installation & Setup
 
 ## Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/langchain-chatbot.git
-cd langchain-chatbot
+git clone https://github.com/Sahithi-0506/chatbot.git
+cd chatbot
 ```
+
+---
 
 ## Step 2: Create Conda Environment
 
@@ -69,6 +170,8 @@ cd langchain-chatbot
 conda create -n langchain-env python=3.10 -y
 conda activate langchain-env
 ```
+
+---
 
 ## Step 3: Install Dependencies
 
@@ -78,19 +181,29 @@ pip install -r requirements.txt
 
 ---
 
-# 🔑 API Configuration
+## Step 4: Configure Environment Variables
 
-Create a `.env` file in the project folder.
-
-Add your Gemini API key:
+Create a `.env` file in the root folder.
 
 ```env
-GOOGLE_API_KEY=your_api_key_here
+GOOGLE_API_KEY=your_gemini_api_key
 ```
 
 ---
 
-# ▶️ Run the Application
+# ▶️ Running the Project
+
+## Step 1: Run Offline PDF Ingestion Dashboard
+
+```bash
+streamlit run ingest.py
+```
+
+Upload PDFs and build ChromaDB.
+
+---
+
+## Step 2: Run Main Application
 
 ```bash
 streamlit run app.py
@@ -98,97 +211,129 @@ streamlit run app.py
 
 Application runs at:
 
-```bash
+```text
 http://localhost:8501
 ```
 
 ---
 
-## 💡 How It Works
+# 📥 Offline PDF Ingestion Workflow
 
-1. User uploads one or more academic PDF documents.
-2. Text is extracted from PDFs using PyPDF2.
-3. Extracted text is split into smaller chunks using LangChain text splitter.
-4. Each chunk is converted into embeddings using HuggingFace MiniLM embeddings.
-5. Embeddings are stored in FAISS Vector Store.
-6. When the user asks a question, the system performs semantic similarity search.
-7. The top relevant chunks are retrieved from FAISS.
-8. Retrieved context and user question are sent to Gemini AI.
-9. Gemini generates a context-aware academic answer.
-10. The app displays the answer along with source citation.
+1. User uploads academic PDFs
+2. PDFs are stored inside `data/pdfs`
+3. Text is extracted using PyMuPDF
+4. Tables are extracted using pdfplumber
+5. Extracted content is cleaned and chunked
+6. HuggingFace embeddings are generated
+7. Chunks are stored permanently in ChromaDB
 
 ---
 
-## ⚙️ Optimization
+# ❓ Question Answering Workflow
 
-- Used local HuggingFace embeddings to reduce Gemini API dependency.
-- Cached the embedding model using Streamlit `cache_resource`.
-- Reduced chunk size and chunk overlap for better retrieval efficiency.
-- Limited top-k retrieval to reduce unnecessary context.
-- Limited chat history sent to Gemini to reduce token consumption.
+1. User asks a question
+2. Query rewriting improves retrieval quality
+3. ChromaDB performs semantic similarity search
+4. Retrieved chunks are reranked using CrossEncoder
+5. Relevant context is injected into prompt
+6. Gemini generates grounded contextual answer
+7. Source citations are displayed with PDF name and page number
 
 ---
 
+# 🧠 Optimization Techniques
 
-# 📸 Output Screenshot
+- Persistent ChromaDB vector storage
+- Semantic retrieval using embeddings
+- Query rewriting for improved retrieval accuracy
+- CrossEncoder reranking for relevance optimization
+- Modular RAG architecture
+- Top-k retrieval optimization
+- Chat history persistence
+- PDF-specific filtering
+- Context size optimization for token efficiency
 
-![alt text](image-5.png)
+---
+
+# 🧩 Software Engineering Principles Used
+
+## SOLID Principles
+
+- Single Responsibility Principle
+- Modular architecture
+- Separation of concerns
+- Reusable pipeline components
+- Extensible retrieval pipeline
+
+---
+
+# 📸 Screenshots
+
+## Main Chat Interface
+
+![alt text](image-2.png)
+
+---
 
 ## RAG Architecture Diagram
 
 ![alt text](image.png)
 
-## 📄 Document Processing Pipeline
+---
 
-The uploaded academic PDFs are processed step by step before answering user questions.
+## Document Processing Pipeline
 
-![alt text](image-2.png)
-
-## ❓ Question Answering Pipeline
-
-The system retrieves semantically relevant document chunks and generates grounded answers using Gemini.
-
-![alt text](image-3.png)
-
-## 🔄 TF-IDF vs Embedding-Based Retrieval
-
-The project was initially implemented using TF-IDF keyword matching and later upgraded to embedding-based semantic retrieval using HuggingFace embeddings and FAISS vector search.
-
-![alt text](image-4.png)
-
+![alt text](image-1.png)
 
 ---
 
+## Question Answering Pipeline
+
+c:\Users\achyu\Pictures\Screenshots\image4.jpeg
+
+---
+
+
+
 # 🎯 Use Cases
 
-- Exam preparation
-- Quick revision
-- Concept clarification
 - Academic doubt solving
+- Exam preparation
 - Notes summarization
+- Concept explanation
+- Quick revision
+- Multi-PDF semantic search
+- AI-assisted learning
 
 ---
 
 # 🚀 Future Enhancements
 
-- Add chat history support
-- Add voice assistant integration
-- Add multi-subject organization
-- Implement vector databases like FAISS
-- Add authentication system
-- Deploy advanced RAG pipeline
+- OCR support for scanned PDFs
+- Gemini Vision integration
+- Voice-based interaction
+- Authentication system
+- Cloud deployment
+- Multi-user support
+- Citation highlighting inside PDFs
+- Hybrid search (keyword + semantic)
+- Advanced agentic RAG workflows
 
 ---
 
 # 👩‍💻 Author
 
-**Sahithi Achyutha Ishwarya Kalla**
+## Sahithi Achyutha Ishwarya Kalla
 
-- GitHub: https://github.com/Sahithi-0506
-- LinkedIn: https://www.linkedin.com/in/sahithi-achyutha-ishwarya-kalla-317799319/
+- GitHub:
+  https://github.com/Sahithi-0506
+
+- LinkedIn:
+  https://www.linkedin.com/in/sahithi-achyutha-ishwarya-kalla-317799319/
 
 ---
 
 # 📄 License
 
-This project is created for educational and learning purposes.
+This project is developed for educational, academic, and learning purposes.
+````
