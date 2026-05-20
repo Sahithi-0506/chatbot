@@ -231,19 +231,19 @@ http://localhost:8501
 
 ![alt text](image-2.png)
 
----
+
 
 ## RAG Architecture Diagram
 
 ![alt text](image.png)
 
----
+
 
 ## Document Processing Pipeline
 
 ![alt text](image-1.png)
 
----
+
 
 ## Question Answering Pipeline
 
