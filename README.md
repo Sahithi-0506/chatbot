@@ -229,25 +229,25 @@ http://localhost:8501
 
 ## Main Chat Interface
 
-![alt text](image-2.png)
+![Main Chat Interface](./main-ui.png)
 
 ---
 
 ## RAG Architecture Diagram
 
-![alt text](image.png)
+![RAG Architecture Diagram](./rag-architecture.png)
 
 ---
 
 ## Document Processing Pipeline
 
-![alt text](image-1.png)
+![Document Processing Pipeline](./document-pipeline.png)
 
 ---
 
 ## Question Answering Pipeline
 
-![alt text](image-3.png)
+![Question Answering Pipeline](./question-pipeline.png)
 
 ---
 
