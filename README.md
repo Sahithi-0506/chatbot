@@ -1,4 +1,3 @@
-````markdown id="1clu57"
 # 📚 Hybrid Academic RAG Assistant
 
 An advanced AI-powered Hybrid Academic RAG (Retrieval-Augmented Generation) Assistant built using LangChain, Google Gemini API, ChromaDB, HuggingFace Embeddings, and Streamlit.
@@ -18,7 +17,7 @@ The project follows a modular enterprise-style RAG architecture with query rewri
 - Extract tables using pdfplumber
 - Clean and preprocess extracted content
 - Split documents into semantic chunks
-- Generate embeddings using HuggingFace MiniLM
+- Generate semantic embeddings using HuggingFace MiniLM
 - Store embeddings permanently in ChromaDB
 
 ---
@@ -73,8 +72,6 @@ The project follows a modular enterprise-style RAG architecture with query rewri
 
 ---
 
-
-
 # 📂 Project Structure
 
 ```bash
@@ -87,6 +84,10 @@ langchain-chatbot/
 ├── README.md
 ├── .gitignore
 ├── chat_history.json
+├── image.png
+├── image-1.png
+├── image-2.png
+├── image-3.png
 │
 ├── data/
 │   └── pdfs/
@@ -105,8 +106,6 @@ langchain-chatbot/
 │   ├── prompt_builder.py
 │   ├── generator.py
 │   └── pipeline.py
-│
-└── images/
 ```
 
 ---
@@ -182,7 +181,7 @@ http://localhost:8501
 3. Text is extracted using PyMuPDF
 4. Tables are extracted using pdfplumber
 5. Extracted content is cleaned and chunked
-6. HuggingFace embeddings are generated
+6. HuggingFace semantic embeddings are generated
 7. Chunks are stored permanently in ChromaDB
 
 ---
@@ -251,8 +250,6 @@ http://localhost:8501
 
 ---
 
-
-
 # 🎯 Use Cases
 
 - Academic doubt solving
@@ -294,4 +291,3 @@ http://localhost:8501
 # 📄 License
 
 This project is developed for educational, academic, and learning purposes.
-````
