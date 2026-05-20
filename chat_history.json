@@ -1,0 +1,78 @@
+[
+    {
+        "question": "what are process states",
+        "answer": "### Understanding Process States\n\nWhen a computer program runs, it becomes a \"process.\" This process doesn't just stay in one condition; it moves through various stages, known as process states. These states describe what the process is currently doing. Different operating systems might have slight variations in these stages.\n\n### Common Process States\n\nHere are the common states a process can be in:\n\n*   **New**: This is when the process is first being created by the operating system.\n*   **Ready**: After creation, the process is waiting for its turn to be assigned to a processor (CPU) to start executing its instructions. It's ready to run but not yet running.\n*   **Running**: In this state, the process's instructions are actively being executed by the CPU.\n*   **Waiting**: The process enters this state when it needs to wait for something to happen. This could be waiting for an input/output (I/O) operation to finish (like reading from a disk or keyboard) or waiting to receive a signal from another part of the system.\n*   **Terminated**: Once the process has completed all its instructions or has been stopped for some reason, it enters the terminated state, meaning it has finished its execution.\n\n### Process Control Block (PCB)\n\nThe operating system keeps track of each process using a data structure called a Process Control Block (PCB). One of the key pieces of information stored in this PCB is the current **process state** (e.g., new, ready, running, waiting, terminated).\n\nProcesses continuously cycle through these states until they eventually terminate. For example, a process might move from \"Waiting\" back to \"Ready\" once the event it was waiting for occurs, and then eventually move to \"Running\" when the CPU is available.\n\n---\n**Sources:**\n*   Unit-2.pdf - Page 2\n*   Unit-2.pdf - Page 5",
+        "sources": [
+            "Unit-2.pdf - Page 2 (text)",
+            "Unit-2.pdf - Page 5 (text)"
+        ],
+        "rewritten_query": "what are process states",
+        "timestamp": "2026-05-20 12:06:17"
+    },
+    {
+        "question": "what is llm",
+        "answer": "The answer is not available in the stored documents.",
+        "sources": [
+            "AI.pdf - Page 39 (text)",
+            "AI.pdf - Page 104 (text)",
+            "AI.pdf - Page 105 (text)"
+        ],
+        "rewritten_query": "Introduction to Large Language Models PDF",
+        "timestamp": "2026-05-20 12:13:52"
+    },
+    {
+        "question": "define RAG",
+        "answer": "The answer is not available in the stored documents.",
+        "sources": [
+            "AI.pdf - Page 41 (text)",
+            "AI.pdf - Page 1 (text)",
+            "AI.pdf - Page 172 (text)"
+        ],
+        "rewritten_query": "Retrieval Augmented Generation (RAG) definition",
+        "timestamp": "2026-05-20 12:14:35"
+    },
+    {
+        "question": "From AI.pdf, what is LLM?",
+        "answer": "The answer is not available in the stored documents.",
+        "sources": [
+            "Unit-2.pdf - Page 13 (text)",
+            "AI.pdf - Page 39 (text)",
+            "AI.pdf - Page 104 (text)"
+        ],
+        "rewritten_query": "Large Language Model definition",
+        "timestamp": "2026-05-20 12:16:55"
+    },
+    {
+        "question": "what are functions of os",
+        "answer": "Here are the functions of an operating system:\n\n### Operating System Functions\n\nOperating systems perform various functions to manage computer resources effectively.\n\n#### 1. Process Management\nThe operating system manages the Central Processing Unit (CPU) by deciding which programs get to run on the processor and when. This includes handling the creation, termination, and synchronization of processes. A program is a passive set of instructions stored on a disk, while a process is an active program that is currently running.\n\n#### 2. User Interface\nAlmost all operating systems provide a user interface (UI). This interface allows users to interact with the computer system. User interfaces can vary, including:\n*   **Command-Line Interface (CLI):** Users type commands to interact.\n*   **Graphics User Interface (GUI):** Users interact using visual elements like windows, icons, and menus.\n*   **Touch-screen:** Users interact by touching the screen.\n\n#### 3. Program Execution\nThe operating system provides an environment where programs can run. It must be able to load a program into the computer's memory and then execute it.\n\n**Source:**\n*   Unit-1.pdf - Page 1\n*   Unit-1.pdf - Page 8",
+        "sources": [
+            "Unit-1.pdf - Page 1 (text)",
+            "Unit-1.pdf - Page 8 (text)"
+        ],
+        "rewritten_query": "Operating system functions",
+        "timestamp": "2026-05-20 12:45:42"
+    },
+    {
+        "question": "Summarize the stored documents",
+        "answer": "Here's a summary of the provided documents regarding document ranking and reranking:\n\n### Understanding Document Ranking and Reranking\n\nDocument ranking and reranking are processes used to organize search results to show the most relevant documents first. The goal is to assign a \"relevance score\" to each document based on how well it matches a user's query.\n\n#### How Document Ranking Works\n\n1.  **Initial Search Results:** When you perform a search, an initial set of documents is retrieved.\n2.  **Improving Relevance (Reranking):** These initial results are then processed further to improve their order and relevance to your specific query. This is often done in a two-stage process:\n    *   **Initial Search Results:** The first step.\n    *   **Improved Search Results:** The second step, where reranking happens.\n\n#### Key Aspects of Reranking\n\n*   **Relevance Scores:** Each document is given a score indicating its relevance to the query. Efficient sorting algorithms, like heap sort or bubble sort, are used to quickly process and order these documents based on their scores.\n*   **Generating Document Pairs:** One method involves creating pairs of documents and comparing them to each other to determine their relative relevance.\n*   **Fine-tuning Models:** To improve how well documents are ranked, models can be adjusted (fine-tuned) using specific datasets designed for ranking tasks. This helps the models learn to better understand query-document relevance.\n*   **Encoder-Decoder Structures:** Some advanced methods formulate document ranking as a \"generation task,\" using special AI models called encoder-decoder structures to optimize the ranking process.\n*   **Breaking Down Documents:** For very long documents, some systems automatically break them into smaller, more manageable parts (chunks) to process them more efficiently and accurately.\n\n#### Examples of Reranking Tools/Models\n\n*   **Cohere:** This platform offers rerank models specifically designed for English and multilingual documents. These models are optimized for various language processing tasks, break down long documents into chunks, and provide normalized relevance scores (between 0 and 1) to make results easier to interpret.\n*   **Mixedbread:** This provides a family of open-source reranking models. These models allow users to seamlessly integrate semantic relevance (understanding the meaning) into their existing search systems.\n\n**Source:**\n*   AI.pdf - Page 103\n*   AI.pdf - Page 104\n*   AI.pdf - Page 105",
+        "sources": [
+            "AI.pdf - Page 103 (text)",
+            "AI.pdf - Page 104 (text)",
+            "AI.pdf - Page 105 (text)"
+        ],
+        "rewritten_query": "Academic papers on multi-document summarization methods",
+        "timestamp": "2026-05-20 12:46:23"
+    },
+    {
+        "question": "Summarize the selected PDF",
+        "answer": "Here's a summary of the information from the provided documents:\n\n### Key Aspects of Computer Systems and Operating System Support\n\nThe documents discuss different types of computing architectures, methods for optimizing system performance, and various tools and support provided by operating systems for file management and programming.\n\n#### 1. Centralized vs. Distributed Systems\n\n*   **Centralized Systems:** In this architecture, most processing and data storage occur on a single central server or a small group of connected servers. This central server manages all operations, resources, and data, acting as the main hub. Client devices connected to it typically have minimal processing power and rely heavily on the server for computational tasks.\n*   **Distributed Systems:** These systems involve multiple independent computers or \"nodes\" that work together to achieve a common goal. These nodes communicate and coordinate with each other.\n\n#### 2. System Performance Tuning and Debugging\n\nBeyond fixing crashes, system performance can be optimized through various techniques:\n\n*   **Trace Listings:** Recording activities for later analysis can help in performance tuning.\n*   **Profiling:** This involves periodically sampling the instruction pointer to identify statistical trends and potential bottlenecks.\n*   **Debugging Challenges:** Debugging is often considered significantly harder than writing the original code, as highlighted by Kernighan's Law.\n*   **Bottleneck Removal:** Improving performance often involves identifying and removing bottlenecks within the system.\n*   **System Behavior Measurement:** Operating systems provide tools to compute and display measures of system behavior, such as the \"top\" program in Linux or Windows Task Manager.\n\n#### 3. Operating System Support for Files and Programming\n\nOperating systems offer various tools and support for users and developers:\n\n*   **File Modification:** Several text editors are usually available to create and modify files stored on disk. There are also commands to search file contents or transform text.\n*   **Programming Language Support:** Operating systems often include compilers, assemblers, debuggers, and interpreters for common programming languages like C, C++, Java, and Python.\n*   **Program Loading and Execution:** Once a program is compiled or assembled, the system provides mechanisms (like absolute or relocatable loaders) to load it into memory for execution.\n\n**Source:**\n*   Unit-1.pdf - Page 15\n*   Unit-1.pdf - Page 20\n*   Unit-1.pdf - Page 22",
+        "sources": [
+            "Unit-1.pdf - Page 22 (text)",
+            "Unit-1.pdf - Page 20 (text)",
+            "Unit-1.pdf - Page 15 (text)"
+        ],
+        "rewritten_query": "PDF summarization techniques academic papers",
+        "selected_pdf": "Unit-1.pdf",
+        "timestamp": "2026-05-20 12:55:44"
+    }
+]

@@ -2,6 +2,19 @@ from config import RETRIEVAL_TOP_K
 from rag.vector_store import get_vector_store
 
 
-def retrieve_documents(query: str, top_k: int = RETRIEVAL_TOP_K):
-    vector_store = get_vector_store()
-    return vector_store.similarity_search(query, k=top_k)
+def retrieve_documents(query, selected_pdf="All PDFs"):
+    db = get_vector_store()
+
+    if selected_pdf and selected_pdf != "All PDFs":
+        docs = db.similarity_search(
+            query,
+            k=RETRIEVAL_TOP_K,
+            filter={"file_name": selected_pdf}
+        )
+    else:
+        docs = db.similarity_search(
+            query,
+            k=RETRIEVAL_TOP_K
+        )
+
+    return docs
