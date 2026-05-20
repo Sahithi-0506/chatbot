@@ -73,49 +73,7 @@ The project follows a modular enterprise-style RAG architecture with query rewri
 
 ---
 
-# 🏗️ RAG Architecture
 
-## 📥 Offline / Ingestion Pipeline
-
-```text
-PDF Upload
-    ↓
-Text + Table Extraction
-    ↓
-Cleaning & Preprocessing
-    ↓
-Chunking
-    ↓
-Embedding Generation
-    ↓
-Store in ChromaDB
-```
-
----
-
-## ❓ Question Answering Pipeline
-
-```text
-User Question
-      ↓
-Query Rewriting
-      ↓
-Semantic Retrieval from ChromaDB
-      ↓
-CrossEncoder Reranking
-      ↓
-Prompt Refinement
-      ↓
-Context Injection
-      ↓
-Gemini 2.5 Flash
-      ↓
-Grounded Answer Generation
-      ↓
-Source Citation
-```
-
----
 
 # 📂 Project Structure
 
